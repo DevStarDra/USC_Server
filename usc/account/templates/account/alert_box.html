@@ -1,0 +1,29 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="alert-box">
+        
+        <!-- Icon -->
+        <div class="icon {{ type }}">
+            <span data-feather="{{ icon }}"></span>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1>{{ title }}</h1>
+            <p>{{ message }}</p>
+        </div>
+
+        <!-- Action button -->
+        
+        {% if action %}
+            <div class="action">
+                <a href="{% url action_url %}" class="btn btn-primary">{{action}}</a>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="auth-box register-variant">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <legend>Update Profile</legend>
+
+        {{ form.as_p }}
+
+        <div class="form-group d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-primary submit-btn mx-2">Update</button>
+            <a href="{% url 'account:profile' %}" class="btn btn-outline-danger submit-btn mx-2">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

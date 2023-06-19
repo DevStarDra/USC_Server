@@ -1,0 +1,39 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% include 'CFR/node_head.html' %}
+
+<div id="html-content">
+
+    <!-- <h3>{{ object.label_description }}</h3> -->
+
+    <div class="ecfr-content">
+        {{ html }}
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block script %}
+
+<script>
+    let link_real_base = "https://www.ecfr.gov"
+    let links = document.querySelectorAll('#html-content a');
+
+    for (let i = 0; i < links.length; i++) {
+        let link = links[i];
+        let href = link.getAttribute('href');
+        if (href.startsWith('/')) {
+            link.setAttribute('href', link_real_base + href);
+            link.setAttribute('target', '_blank');
+        }
+    }
+</script>
+    
+{% endblock script %}
+    

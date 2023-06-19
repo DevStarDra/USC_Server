@@ -1,0 +1,39 @@
+{% extends 'Main/base.html' %}
+
+{% block content %}
+
+{% include 'Data/node_head.html' %}
+
+<div class="main-list">
+    {% for node in nodes %}
+    <div class="node-item">
+        {% if node.has_children %}
+            <p>{{ node.get_title }}</p>
+            <div class="links">
+                <a class="btn btn-sm btn-primary" href="{{ node.get_node_url }}">View</a>
+                <a class="btn btn-sm btn-outline-primary" href="{{ node.get_view_document_link }}"
+                target="_blank">Paper</a>
+
+                
+                {% if node.pdffile %}
+                    <a class="btn btn-sm btn-outline-primary" href="{{ node.get_pdf_link }}"
+                    target="_blank">PDF</a>
+                {% endif %}
+                    
+            </div>
+        {% else %}
+            <p>{{ node.get_title }}</p>
+            <div class="links">
+                <a class="btn btn-sm btn-primary" href="{{ node.get_view_document_link }}" target="_blank">Paper</a>
+
+                {% if node.pdffile %}
+                    <a class="btn btn-sm btn-outline-primary" href="{{ node.get_pdf_link }}"
+                    target="_blank">PDF</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

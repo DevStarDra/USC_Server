@@ -1,0 +1,21 @@
+{% extends 'account/email/base.html' %}
+
+{% block contents %}
+<h3>Hi {{ name }},</h3>
+
+<p>Welcome to {{ app_name }}, please verify your email address with the link below</p>
+
+<a class="btn" href="{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}">Verify</a>
+
+<p class="text-align: center;">
+    <strong>If the above button does not work copy and paste the link below in your browser</strong>
+</p>
+<p class="link-copy">{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}</p>
+
+<p>Do not share this link with anyone else, it might compromise your security, keep it undisclosed.</p>
+
+<p>If you did not create an account with {{ app_name }}, please ignore this email.</p>
+
+<p>Thank you for choosing {{ app_name }},</p>
+<p>Cheers<br>Team {{ app_name }}<br>{{ from }}</p>
+{% endblock contents %}

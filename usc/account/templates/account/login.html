@@ -1,0 +1,23 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="auth-box">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <legend>Sign in today!</legend>
+
+            {{ form.as_p }}
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary submit-btn">Login</button>
+            </div>
+
+            <small>Forgot your password? <a href="{% url 'account:forget_password' %}">Recover password</a></small>
+            <small>Not registered yet? <a href="{% url 'account:register' %}">Create an account</a></small>
+        </form>
+    </div>
+
+{% endblock %}

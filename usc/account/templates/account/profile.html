@@ -1,0 +1,28 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="profile-card">
+        <div class="profile-image">
+            
+            {% if user.profile.photo %}
+                <img src="{{ user.profile.photo.url }}" alt="Profile Image">
+            {% else %}
+                <img src="" alt="">
+            {% endif %}
+                
+        </div>
+    
+        <div class="profile-info">
+            <h1 class="name">{{ user.profile.get_fullname }}</h1>
+            <h2 class="email">{{ user.email }}</h2>
+        </div>
+    
+        <div class="profile-buttons">
+            <a href="{% url 'account:profile_update' %}" class="btn btn-primary">Update Profile</a>
+            <a href="{% url 'account:change_password' %}" class="btn btn-primary">Change Password</a>
+        </div>
+    </div>
+
+{% endblock %}

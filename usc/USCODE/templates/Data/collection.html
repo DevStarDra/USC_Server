@@ -1,0 +1,25 @@
+{% extends 'Main/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1 id="collection_name">{{ object.name }}</h1>
+
+    <div class="years-box">
+        {% for node in nodes %}
+        <a href="{{ node.get_node_url }}">
+            <div>
+                {% if node.has_children %}
+                    <p>{{ node.get_title }}</p>
+                {% else %}
+                    <p>{{ node.get_title }}</p>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock %}

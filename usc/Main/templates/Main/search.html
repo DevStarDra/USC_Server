@@ -1,0 +1,81 @@
+{% extends 'Main/base.html' %}
+
+{% block content %}
+
+<div id="global-search">
+    <form action="">
+        {% include "Main/inner_search.html" %}
+    </form>
+</div>
+
+
+{% if qa %}
+
+<div id="ai-search" class="{% if not ai_term_accepted %}d-none{% endif %}">
+    <div id="ai-result">
+        {{ qa }}
+    </div>
+</div>
+
+{% endif %}
+
+{% if not ai_term_accepted %}
+
+<div id="ai-terms">
+    <h2>QA Terms</h2>
+    <p>
+        The information provided on this website does not, and is not intended to, constitute legal advice; instead, all
+        information, content, and materials available on this site are for general informational purposes only.
+        Information on this website may not constitute the most up-to-date legal or other information.
+        Readers of this website should contact their attorney to obtain advice with respect to any particular legal
+        matter. No reader, user, or browser of this site should act or refrain from acting on the basis of information
+        on this site without first seeking legal advice from counsel in the relevant jurisdiction.
+        Only your individual attorney can provide assurances that the information contained herein – and your
+        interpretation of it – is applicable or appropriate to your particular situation. Use of, and access to, this
+        website or any of the links or resources contained within the site do not create an attorney-client relationship
+        between the reader, user, or browser and website authors, contributors, contributing law firms, or committee
+        members and their respective employers.
+        All liability with respect to actions taken or not taken based on the contents of this site are hereby expressly
+        disclaimed. The content on this posting is provided "as is;" no representations are made that the content is
+        error-free.
+    </p>
+    <form method="post" class="d-flex align-items-center justify-content-center gap-4">
+        {% csrf_token %}
+        <input type="hidden" name="accept_ai_terms" value="1">
+        <button id="accept-ai-terms" class="btn btn-success">Accept</button>
+        <a href="/" class="btn btn-outline-danger">Decline</a>
+    </form>
+</div>
+
+{% endif %}
+
+
+{% if nodes %}
+
+<div class="main-list">
+    {% for node in nodes %}
+    <div class="node-item">
+        <p><strong>{{ node.get_collection_name }}</strong> - {{ node.get_title }}</p>
+        <div class="links">
+            <a class="btn btn-sm btn-primary" href="{{ node.get_html_url }}">Paper</a>
+
+            {% if node.pdf_link %}
+            <a class="btn btn-sm btn-outline-primary" href="{{ node.pdf_link }}" target="_blank">PDF</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+
+{% if request.GET.collection != "QA" and ai_term_accepted %}
+<div class="no-nodes">
+    <p>Nothing to display!</p>
+</div>
+{% endif %}
+
+{% endif %}
+
+
+{% endblock %}

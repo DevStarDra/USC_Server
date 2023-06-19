@@ -1,0 +1,40 @@
+{% load static %}
+{% load utils %}
+
+<div class="search-main">
+    <legend>
+        <img src="{% static 'deeplegal.png' %}" alt="">
+    </legend>
+    <div class="search-bar-input">
+        <input type="text" name="search"
+            placeholder="{% get_random_placeholder %}" class="form-control"
+            value="{% if request.GET.search %}{{ request.GET.search }}{% endif %}">
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-search">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="search-select-bar">
+
+        <select name="collection" id="selectCollection" class="form-select">
+            <option value="">All Content</option>
+
+            <option value="USCODE" {% if request.GET.collection == "USCODE" %} selected {% endif %}>United States Code</option>
+
+            <option value="CFR" {% if request.GET.collection == "CFR" %} selected {% endif %}>Code of Federal Regulations</option>
+           
+            <option value="QA" {% if request.GET.collection == "QA" %} selected {% endif %}>Questions and Answer</option>
+        </select>
+
+        <select name="jurisdictions" id="selectJurisdiction" class="form-select">
+            <option value="">All Jurisdictions</option>
+        </select>
+
+    </div>
+
+    <p class="adv-search">Advanced Search</p>
+</div>

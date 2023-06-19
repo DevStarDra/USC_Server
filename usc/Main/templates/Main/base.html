@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/vendors/feather-icon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    {% if title %}
+    <title>DeepLegal | {{ title }}</title>
+    {% else %}
+    <title>DeepLegal</title>
+    {% endif %}
+
+
+    <link rel="icon" type="image/x-icon" href="{% static 'singularityFavicon.ico' %}">
+    {% block link_css %}
+    {% endblock link_css %}
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+</head>
+
+<body>
+
+    <div id="particles-js"></div>
+
+    <div id="main">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    DeepLegal
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="ms-auto">
+
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'account:profile' %}" class="btn btn-primary" type="submit">Account</a>
+                        <a href="{% url 'account:logout' %}" class="btn btn-outline-danger ms-3" type="submit">Sign
+                            out</a>
+                        {% else %}
+                        <a href="{% url 'account:login' %}" class="btn btn-success sign-in" type="submit">Sign in</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        {% if messages %}
+        <div class="mb-4 mt-3 container-fluid">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        <main class="container-fluid py-3">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="container-fluid py-3">
+                <div class="row">
+                    <div class="col-12 col-md-4 my-4 me-auto">
+                        <div class="footer-logo">
+                            <a href="/">
+                                <img src="{% static 'deeplegal.png' %}" alt="DeepLegal" width="img-fluid">
+                            </a>
+                            <p>Expanding the boundaries AI assisted Legal Research.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 my-4">
+                        <div class="footer-links">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'account:profile' %}">Account</a></li>
+                                <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                                {% else %}
+                                <li><a href="{% url 'account:login' %}">Login</a></li>
+                                <li><a href="{% url 'account:register' %}">Register</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 my-4">
+                        <div class="footer-links">
+                            <h3>Pages</h3>
+                            <ul>
+                                <li><a href="{% url 'main:terms_of_service' %}">Terms of Service</a></li>
+                                <li><a href="{% url 'main:terms_of_use' %}">Terms of Use</a></li>
+                                <li><a href="{% url 'main:privacy_policy' %}">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <form method="post" action="{% url 'main:update_cookies' %}" id="cookieForm">
+        {% csrf_token %}
+        <input type="hidden" name="accept">
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="{% static 'js/vendors/feather.min.js' %}"></script>
+    <script src="{% static 'js/vendors/feather-icon.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+    {% block script %}
+    {% endblock script %}
+
+</body>
+
+</html>

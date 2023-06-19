@@ -1,0 +1,60 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div id="global-search">
+        <form action="{% url 'main:search' %}">
+
+            {% include "Main/inner_search.html" %}
+
+        </form>
+    </div>
+
+    <div id="explore-bar">
+        <div class="head">
+
+            <div class="title">
+                <span>
+                    <img src="{% static 'globe.png' %}" alt="">
+                </span>
+                Explore
+            </div>
+
+            <div class="tab-titles">
+                <div class="tab-title">
+                    Content
+                </div>
+                <div class="tab-title">
+                    Federal
+                </div>
+                <div class="tab-title">
+                    State
+                </div>
+                <div class="tab-title">
+                    Sources
+                </div>
+                <div class="tab-title">
+                    Topics
+                </div>
+                <div class="tab-title">
+                    Tools
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="body">
+
+            <p class="top">Top Sources</p>
+
+            <div class="links">
+                {% for collection in collections %}
+                    <a href="/collection/{{ collection.code }}">{{ collection.name }}</a>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
